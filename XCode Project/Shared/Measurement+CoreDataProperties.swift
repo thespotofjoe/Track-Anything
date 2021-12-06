@@ -20,6 +20,11 @@ extension Measurement
 
     @NSManaged public var number: Double
     @NSManaged public var date: Date?
+    
+    public var unwrappedDate: Date
+    {
+        return date!
+    }
 
 }
 

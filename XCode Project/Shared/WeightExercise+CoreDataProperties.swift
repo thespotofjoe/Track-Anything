@@ -21,6 +21,27 @@ extension WeightExercise
     @NSManaged public var name: String?
     @NSManaged public var logs: NSSet?
     @NSManaged public var goal: WeightExerciseGoal?
+    
+    public var unwrappedName: String
+    {
+        return name!
+    }
+    
+    
+    public var logArray: [WeightExercise]
+    {
+        let set = logs as? Set<WeightExercise> ?? []
+        
+        return set.sorted
+        {
+            $0.unwrappedName < $1.unwrappedName
+        }
+    }
+    
+    public var unwrappedGoal: WeightExerciseGoal
+    {
+        return goal!
+    }
 
 }
 

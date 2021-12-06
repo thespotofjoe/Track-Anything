@@ -23,8 +23,14 @@ extension WeightExerciseEntry
     @NSManaged public var reps: Int16
     @NSManaged public var date: Date?
 
+    public var unwrappedDate: Date
+    {
+        return date!
+    }
+    
 }
 
-extension WeightExerciseEntry : Identifiable {
+extension WeightExerciseEntry : Identifiable
+{
 
 }

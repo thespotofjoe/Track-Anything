@@ -21,7 +21,37 @@ extension Metric
     @NSManaged public var name: String?
     @NSManaged public var unit: String?
     @NSManaged public var logs: NSSet?
-    @NSManaged public var goal: NSSet?
+    @NSManaged public var goals: NSSet?
+    
+    public var unwrappedName: String
+    {
+        return name!
+    }
+    
+    public var unwrappedUnit: String
+    {
+        return unit!
+    }
+    
+    public var logArray: [Metric]
+    {
+        let set = logs as? Set<Metric> ?? []
+        
+        return set.sorted
+        {
+            $0.unwrappedName < $1.unwrappedName
+        }
+    }
+    
+    public var goalArray: [Goal]
+    {
+        let set = goals as? Set<Goal> ?? []
+        
+        return set.sorted
+        {
+            $0.unwrappedDeadline < $1.unwrappedDeadline
+        }
+    }
 
 }
 

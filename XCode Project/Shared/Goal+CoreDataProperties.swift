@@ -23,6 +23,11 @@ extension Goal
     @NSManaged public var typeOfGoalValue: Int16
     @NSManaged public var timeframeUnitsValue: Int16
     
+    public var unwrappedDeadline: Date
+    {
+        return deadline!
+    }
+    
     var typeOfGoal: TypeOfGoal {
         // To get a State enum from stateValue, initialize the
         // State type from the Int32 value stateValue

@@ -18,7 +18,7 @@
     <entity name="Metric" representedClassName="Metric" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="unit" optional="YES" attributeType="String"/>
-        <relationship name="goal" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Goal"/>
+        <relationship name="goals" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Goal"/>
         <relationship name="logs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Measurement"/>
     </entity>
     <entity name="WeightExercise" representedClassName="WeightExercise" syncable="YES">

@@ -21,6 +21,31 @@ extension Category
     @NSManaged public var name: String?
     @NSManaged public var metrics: NSSet?
     @NSManaged public var exercises: NSSet?
+    
+    public var unwrappedName: String
+    {
+        return name!
+    }
+    
+    public var metricArray: [Metric]
+    {
+        let set = metrics as? Set<Metric> ?? []
+        
+        return set.sorted
+        {
+            $0.unwrappedName < $1.unwrappedName
+        }
+    }
+    
+    public var exercisesArray: [WeightExercise]
+    {
+        let set = exercises as? Set<WeightExercise> ?? []
+        
+        return set.sorted
+        {
+            $0.unwrappedName < $1.unwrappedName
+        }
+    }
 
 }
 
