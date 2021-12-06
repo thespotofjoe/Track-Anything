@@ -17,8 +17,6 @@
 		095E34062757D9F10032FBFF /* Track_AnythingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095E33DA2757D9F00032FBFF /* Track_AnythingApp.swift */; };
 		095E34072757D9F20032FBFF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095E33DB2757D9F00032FBFF /* ContentView.swift */; };
 		095E34082757D9F20032FBFF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095E33DB2757D9F00032FBFF /* ContentView.swift */; };
-		095E34092757D9F20032FBFF /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095E33DC2757D9F00032FBFF /* Persistence.swift */; };
-		095E340A2757D9F20032FBFF /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095E33DC2757D9F00032FBFF /* Persistence.swift */; };
 		095E340B2757D9F20032FBFF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 095E33DD2757D9F10032FBFF /* Assets.xcassets */; };
 		095E340C2757D9F20032FBFF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 095E33DD2757D9F10032FBFF /* Assets.xcassets */; };
 /* End PBXBuildFile section */
@@ -44,7 +42,6 @@
 		095E33D92757D9F00032FBFF /* Shared.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Shared.xcdatamodel; sourceTree = "<group>"; };
 		095E33DA2757D9F00032FBFF /* Track_AnythingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track_AnythingApp.swift; sourceTree = "<group>"; };
 		095E33DB2757D9F00032FBFF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		095E33DC2757D9F00032FBFF /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		095E33DD2757D9F10032FBFF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		095E33E22757D9F10032FBFF /* Track Anything.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Track Anything.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		095E33E82757D9F10032FBFF /* Track Anything.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Track Anything.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -105,7 +102,6 @@
 			children = (
 				095E33DA2757D9F00032FBFF /* Track_AnythingApp.swift */,
 				095E33DB2757D9F00032FBFF /* ContentView.swift */,
-				095E33DC2757D9F00032FBFF /* Persistence.swift */,
 				095E33DD2757D9F10032FBFF /* Assets.xcassets */,
 				095E33D82757D9F00032FBFF /* Track_Anything.xcdatamodeld */,
 			);
@@ -308,7 +304,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				095E34032757D9F10032FBFF /* Track_Anything.xcdatamodeld in Sources */,
-				095E34092757D9F20032FBFF /* Persistence.swift in Sources */,
 				095E34052757D9F10032FBFF /* Track_AnythingApp.swift in Sources */,
 				095E34072757D9F20032FBFF /* ContentView.swift in Sources */,
 			);
@@ -319,7 +314,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				095E34042757D9F10032FBFF /* Track_Anything.xcdatamodeld in Sources */,
-				095E340A2757D9F20032FBFF /* Persistence.swift in Sources */,
 				095E34062757D9F10032FBFF /* Track_AnythingApp.swift in Sources */,
 				095E34082757D9F20032FBFF /* ContentView.swift in Sources */,
 			);

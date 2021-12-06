@@ -8,13 +8,14 @@
 import SwiftUI
 
 @main
-struct Track_AnythingApp: App {
-    let persistenceController = PersistenceController.shared
+struct Track_AnythingApp: App
+{
 
-    var body: some Scene {
-        WindowGroup {
+    var body: some Scene
+    {
+        WindowGroup
+        {
             ContentView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
 }
