@@ -37,6 +37,8 @@
 		093A5F68275D978B0063B2CF /* WeightExerciseEntry+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093A5F4C275D978B0063B2CF /* WeightExerciseEntry+CoreDataProperties.swift */; };
 		093A5F6A275D9A370063B2CF /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093A5F69275D9A370063B2CF /* Enums.swift */; };
 		093A5F6B275D9A370063B2CF /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093A5F69275D9A370063B2CF /* Enums.swift */; };
+		093A5F6D275DA8780063B2CF /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093A5F6C275DA8780063B2CF /* DataController.swift */; };
+		093A5F6E275DA8780063B2CF /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093A5F6C275DA8780063B2CF /* DataController.swift */; };
 		095E33F42757D9F10032FBFF /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095E33F32757D9F10032FBFF /* Tests_iOS.swift */; };
 		095E33F62757D9F10032FBFF /* Tests_iOSLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095E33F52757D9F10032FBFF /* Tests_iOSLaunchTests.swift */; };
 		095E34002757D9F10032FBFF /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095E33FF2757D9F10032FBFF /* Tests_macOS.swift */; };
@@ -84,6 +86,7 @@
 		093A5F4B275D978B0063B2CF /* WeightExerciseEntry+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WeightExerciseEntry+CoreDataClass.swift"; sourceTree = "<group>"; };
 		093A5F4C275D978B0063B2CF /* WeightExerciseEntry+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WeightExerciseEntry+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		093A5F69275D9A370063B2CF /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
+		093A5F6C275DA8780063B2CF /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		095E33D92757D9F00032FBFF /* Shared.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Shared.xcdatamodel; sourceTree = "<group>"; };
 		095E33DA2757D9F00032FBFF /* Track_AnythingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track_AnythingApp.swift; sourceTree = "<group>"; };
 		095E33DB2757D9F00032FBFF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -161,6 +164,7 @@
 				093A5F4C275D978B0063B2CF /* WeightExerciseEntry+CoreDataProperties.swift */,
 				095E33DA2757D9F00032FBFF /* Track_AnythingApp.swift */,
 				095E33DB2757D9F00032FBFF /* ContentView.swift */,
+				093A5F6C275DA8780063B2CF /* DataController.swift */,
 				095E33DD2757D9F10032FBFF /* Assets.xcassets */,
 				095E33D82757D9F00032FBFF /* Track_Anything.xcdatamodeld */,
 				093A5F69275D9A370063B2CF /* Enums.swift */,
@@ -373,6 +377,7 @@
 				093A5F4F275D978B0063B2CF /* WeightExerciseGoal+CoreDataProperties.swift in Sources */,
 				093A5F65275D978B0063B2CF /* WeightExerciseEntry+CoreDataClass.swift in Sources */,
 				093A5F67275D978B0063B2CF /* WeightExerciseEntry+CoreDataProperties.swift in Sources */,
+				093A5F6D275DA8780063B2CF /* DataController.swift in Sources */,
 				093A5F59275D978B0063B2CF /* WeightExercise+CoreDataClass.swift in Sources */,
 				093A5F57275D978B0063B2CF /* Goal+CoreDataProperties.swift in Sources */,
 				093A5F61275D978B0063B2CF /* Metric+CoreDataClass.swift in Sources */,
@@ -398,6 +403,7 @@
 				093A5F50275D978B0063B2CF /* WeightExerciseGoal+CoreDataProperties.swift in Sources */,
 				093A5F66275D978B0063B2CF /* WeightExerciseEntry+CoreDataClass.swift in Sources */,
 				093A5F68275D978B0063B2CF /* WeightExerciseEntry+CoreDataProperties.swift in Sources */,
+				093A5F6E275DA8780063B2CF /* DataController.swift in Sources */,
 				093A5F5A275D978B0063B2CF /* WeightExercise+CoreDataClass.swift in Sources */,
 				093A5F58275D978B0063B2CF /* Goal+CoreDataProperties.swift in Sources */,
 				093A5F62275D978B0063B2CF /* Metric+CoreDataClass.swift in Sources */,
