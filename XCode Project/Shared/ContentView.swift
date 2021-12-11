@@ -18,7 +18,7 @@ struct ContentView: View
         ZStack
         {
             bgGradient()
-            homeScreen()
+            newMetricScreen()
         }
     }
     
@@ -78,6 +78,120 @@ struct ContentView: View
             
             button(text: "My Categories")
                 .padding()
+        }
+    }
+    
+    fileprivate func allCategoriesScreen() -> some View
+    {
+        return VStack
+        {
+            VStack
+            {
+                // Create a button for each category from the FetchRequest
+                button(text: "Category 1")
+                button(text: "Category 2")
+                button(text: "Category 3")
+            }
+            .padding()
+            
+            Spacer()
+            
+            button(text: "New Category")
+        }
+    }
+    
+    fileprivate func newCategoryScreen() -> some View
+    {
+        @State var categoryName: String = ""
+        
+        return VStack
+        {
+            VStack
+            {
+                Text("New Category")
+                    .font(.system(size:20, weight: .bold))
+                    .padding()
+                HStack
+                {
+                    Text("Name:")
+                        .padding()
+                    TextField("", text: $categoryName)
+                        .background(.white)
+                }
+            }
+            .padding()
+            
+            Spacer()
+            
+            button(text: "Create Category")
+        }
+    }
+    
+    fileprivate func oneCategoryScreen() -> some View
+    {
+        //@State var category: Category
+        
+        return VStack
+        {
+            VStack
+            {
+                // Name of this Category
+                Text("Category N")
+                    .font(.system(size:20, weight: .bold))
+                    .padding()
+                
+                // Create a button for each metric from the chosen Category
+                button(text: "Metric 1")
+                button(text: "Metric 2")
+                button(text: "Metric 3")
+            }
+            .padding()
+            
+            Spacer()
+            
+            button(text: "New Metric")
+        }
+    }
+    
+    fileprivate func newMetricScreen() -> some View
+    {
+        @State var metricName: String = ""
+        @State var isWeightExercise: Bool = false
+        
+        return VStack
+        {
+            VStack
+            {
+                Text("New Metric")
+                    .font(.system(size:20, weight: .bold))
+                    .padding()
+                
+                HStack
+                {
+                    Text("Name:")
+                        .padding()
+                    TextField("", text: $metricName)
+                        .background(.white)
+                }
+                .padding()
+                
+                HStack
+                {
+                    Text("Weight Exercise?")
+                        .padding()
+                    
+                    Picker("Weight Exercise?", selection: $isWeightExercise, content:
+                        {
+                            Text("Yes").tag(true)
+                            Text("No").tag(false)
+                        })
+                }
+            }
+            .padding()
+            
+            Spacer()
+            
+            button(text: "Create Metric")
         }
     }
 }
