@@ -18,7 +18,7 @@ struct ContentView: View
         ZStack
         {
             bgGradient()
-            newMetricScreen()
+            recordWeightExerciseEntryScreen()
         }
     }
     
@@ -29,14 +29,16 @@ struct ContentView: View
         .ignoresSafeArea()
     }
 
-    fileprivate func button(text: String) -> some View
+    fileprivate func button(text: String, width widthInt: Int = 280) -> some View
     {
+        let width = CGFloat(widthInt)
+        
         return Button
         {
             
         } label: {
             Text(text)
-                .frame(width: 280, height: 40, alignment: .center)
+                .frame(width: width, height: 40, alignment: .center)
                 .background(.white)
                 .cornerRadius(30)
                 .foregroundColor(.black)
@@ -192,6 +194,150 @@ struct ContentView: View
             Spacer()
             
             button(text: "Create Metric")
+        }
+    }
+    
+    fileprivate func whatUnitsScreen() -> some View
+    {
+        @State var unitName: String = ""
+        
+        return VStack
+        {
+            VStack
+            {
+                Text("Specify Units")
+                    .font(.system(size:20, weight: .bold))
+                    .padding()
+                
+                HStack
+                {
+                    Text("Units:")
+                        .padding()
+                    TextField("", text: $unitName)
+                        .background(.white)
+                }
+            }
+            .padding()
+            
+            Spacer()
+            
+            button(text: "Create Metric")
+        }
+    }
+    
+    fileprivate func recordMeasurementScreen() -> some View
+    {
+        @State var measurementString: String = ""
+        @State var date: Date = .now
+        
+        return VStack
+        {
+            VStack
+            {
+                Text("Metric N"/*"/(Name of currently selected metric)"*/)
+                    .font(.system(size:20, weight: .bold))
+                    .padding()
+                
+                HStack
+                {
+                    Text("Units:"/*"/(Name of units):*/)
+                        .padding()
+                    TextField("", text: $measurementString)
+                        .background(.white)
+                        .keyboardType(.decimalPad)
+                }
+                .padding()
+                
+                HStack
+                {
+                    Text("Date:")
+                        .padding()
+                    DatePicker("", selection: $date, displayedComponents: .date)
+                }
+                .padding()
+                
+                HStack
+                {
+                    button(text: "Yesterday", width: 120) // Make this button change @date to yesterday
+                        .padding()
+                    button(text: "Today", width: 120) // Make this button change @date to today
+                }
+            }
+            .padding()
+            
+            Spacer()
+            
+            /*Make this button also convert measurementString to a Double and save it*/
+            button(text: "Record")
+        }
+    }
+    
+    fileprivate func recordWeightExerciseEntryScreen() -> some View
+    {
+        @State var reps: Int = 0
+        @State var sets: Int = 0
+        @State var lbsString: String = ""
+        @State var date: Date = .now
+        
+        return VStack
+        {
+            VStack
+            {
+                Text("Metric N"/*"/(Name of currently selected metric)"*/)
+                    .font(.system(size:20, weight: .bold))
+                    .padding()
+                
+                HStack
+                {
+                    Text("Reps:")
+                        .padding()
+                    Picker("", selection: $sets) {
+                        ForEach(1...50, id: \.self) {
+                            Text("\($0)")
+                        }
+                    }
+                }
+                
+                HStack
+                {
+                    Text("Sets:")
+                        .padding()
+                    Picker("", selection: $sets) {
+                        ForEach(1...30, id: \.self) {
+                            Text("\($0)")
+                        }
+                    }
+                }
+                
+                HStack
+                {
+                    Text("Lbs:")
+                        .padding()
+                    TextField("", text: $lbsString)
+                        .background(.white)
+                        .keyboardType(.decimalPad)
+                }
+                
+                HStack
+                {
+                    Text("Date:")
+                        .padding()
+                    DatePicker("", selection: $date, displayedComponents: .date)
+                }
+                
+                HStack
+                {
+                    button(text: "Yesterday", width: 120) // Make this button change @date to yesterday
+                        .padding()
+                    button(text: "Today", width: 120) // Make this button change @date to today
+                }
+            }
+            .padding()
+            
+            Spacer()
+            
+            /*Make this button also convert measurementString to a Double and save it*/
+            button(text: "Record")
         }
     }
 }
