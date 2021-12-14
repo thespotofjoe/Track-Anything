@@ -28,3 +28,15 @@ enum WeightExerciseComponent: Int16
     case sets = 1
     case lbs = 2
 }
+
+enum Screen: Int16
+{
+    case homeScreen                         = 0
+    case allCategoriesScreen                = 1
+    case newCategoryScreen                  = 2
+    case oneCategoryScreen                  = 3
+    case newMetricScreen                    = 4
+    case whatUnitsScreen                    = 5
+    case recordMeasurementScreen            = 6
+    case recordWeightExerciseEntryScreen    = 7
+}

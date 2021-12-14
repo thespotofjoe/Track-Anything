@@ -12,14 +12,41 @@ struct ContentView: View
 {
     @Environment(\.managedObjectContext)    private var context
     @FetchRequest(sortDescriptors: [])      private var categories: FetchedResults<Category>
+    @State var currentScreen: Screen = .homeScreen
+    @State var newMetricFlag: Bool = false
     
     var body: some View
     {
         ZStack
         {
             bgGradient()
-            recordWeightExerciseEntryScreen()
+            displayCurrentScreen()
         }
+    }
+    
+    // Function to return the current screen and flip between them all
+    fileprivate func displayCurrentScreen() -> some View
+    {
+        switch currentScreen
+        {
+        case .homeScreen:
+            return AnyView(homeScreen())
+        case .allCategoriesScreen:
+            return AnyView(allCategoriesScreen())
+        case .newCategoryScreen:
+            return AnyView(newCategoryScreen())
+        case .oneCategoryScreen:
+            return AnyView(oneCategoryScreen())
+        case .newMetricScreen:
+            return AnyView(newMetricScreen())
+        case .whatUnitsScreen:
+            return AnyView(whatUnitsScreen())
+        case .recordMeasurementScreen:
+            return AnyView(recordMeasurementScreen())
+        case . recordWeightExerciseEntryScreen:
+            return AnyView(recordWeightExerciseEntryScreen())
+        }
+    
     }
     
     // Refactored Views
@@ -29,13 +56,29 @@ struct ContentView: View
         .ignoresSafeArea()
     }
 
-    fileprivate func button(text: String, width widthInt: Int = 280) -> some View
+    fileprivate func button(text: String, width widthInt: Int = 280, newScreen: Screen? = nil, _ action: @escaping ()->() = {}) -> some View
     {
         let width = CGFloat(widthInt)
         
+        // If a new screen to go to was passed, add that functionality to the button
+        if newScreen != nil
+        {
+            return Button
+            {
+                action()
+                self.currentScreen = newScreen!
+            } label: {
+                Text(text)
+                    .frame(width: width, height: 40, alignment: .center)
+                    .background(.white)
+                    .cornerRadius(30)
+                    .foregroundColor(.black)
+            }
+        }
+        
         return Button
         {
-            
+            action()
         } label: {
             Text(text)
                 .frame(width: width, height: 40, alignment: .center)
@@ -71,14 +114,14 @@ struct ContentView: View
                 Text("Quick Actions:")
                     .font(.system(size:25, weight: .bold))
                     .foregroundColor(.white)
-                button(text: "Record Measurement")
-                button(text: "Add Metric to Track")
-                button(text: "Add Category")
+                button(text: "Record Measurement", newScreen: .allCategoriesScreen)
+                button(text: "Add Metric to Track", newScreen: .allCategoriesScreen, {self.newMetricFlag = true})
+                button(text: "Add Category", newScreen: .newCategoryScreen)
             }
             
             Spacer()
             
-            button(text: "My Categories")
+            button(text: "My Categories", newScreen: .allCategoriesScreen)
                 .padding()
         }
     }
@@ -90,15 +133,22 @@ struct ContentView: View
             VStack
             {
                 // Create a button for each category from the FetchRequest
-                button(text: "Category 1")
-                button(text: "Category 2")
-                button(text: "Category 3")
+                if self.newMetricFlag
+                {
+                    button(text: "Category 1", newScreen: .newMetricScreen)
+                    button(text: "Category 2", newScreen: .newMetricScreen)
+                    button(text: "Category 3", newScreen: .newMetricScreen)
+                } else {
+                    button(text: "Category 1", newScreen: .oneCategoryScreen)
+                    button(text: "Category 2", newScreen: .oneCategoryScreen)
+                    button(text: "Category 3", newScreen: .oneCategoryScreen)
+                }
             }
             .padding()
             
             Spacer()
             
-            button(text: "New Category")
+            button(text: "New Category", newScreen: .newCategoryScreen)
         }
     }
     
@@ -125,7 +175,12 @@ struct ContentView: View
             
             Spacer()
             
-            button(text: "Create Category")
+            if self.newMetricFlag
+            {
+                button(text: "Create Category", newScreen: .newMetricScreen)
+            } else {
+                button(text: "Create Category", newScreen: .oneCategoryScreen)
+            }
         }
     }
     
@@ -143,15 +198,15 @@ struct ContentView: View
                     .padding()
                 
                 // Create a button for each metric from the chosen Category
-                button(text: "Metric 1")
-                button(text: "Metric 2")
-                button(text: "Metric 3")
+                button(text: "Metric 1 (Metric)", newScreen: .recordMeasurementScreen)
+                button(text: "Metric 2 (WeightExercise)", newScreen: .recordWeightExerciseEntryScreen)
+                button(text: "Metric 3 (Metric)", newScreen: .recordMeasurementScreen)
             }
             .padding()
             
             Spacer()
             
-            button(text: "New Metric")
+            button(text: "New Metric", newScreen: .newMetricScreen)
         }
     }
     
@@ -193,7 +248,12 @@ struct ContentView: View
             
             Spacer()
             
-            button(text: "Create Metric")
+            if isWeightExercise
+            {
+                button(text: "Create Metric", newScreen: .oneCategoryScreen, {self.newMetricFlag = false})
+            } else {
+                button(text: "Create Metric", newScreen: .whatUnitsScreen)
+            }
         }
     }
     
@@ -221,7 +281,7 @@ struct ContentView: View
             
             Spacer()
             
-            button(text: "Create Metric")
+            button(text: "Create Metric", newScreen: .oneCategoryScreen, {self.newMetricFlag = false})
         }
     }
     
@@ -268,7 +328,7 @@ struct ContentView: View
             Spacer()
             
             /*Make this button also convert measurementString to a Double and save it*/
-            button(text: "Record")
+            button(text: "Record", newScreen: .homeScreen)
         }
     }
     
@@ -337,7 +397,7 @@ struct ContentView: View
             Spacer()
             
             /*Make this button also convert measurementString to a Double and save it*/
-            button(text: "Record")
+            button(text: "Record", newScreen: .homeScreen)
         }
     }
 }
