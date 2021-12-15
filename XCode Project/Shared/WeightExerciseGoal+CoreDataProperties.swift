@@ -23,10 +23,21 @@ extension WeightExerciseGoal
     @NSManaged public var lbsGoal: Int16
     @NSManaged public var deadline: Date?
     @NSManaged public var timeframe: Int16
+    @NSManaged public var timeframeUnitsValue: Int16
     
     public var unwrappedDeadline: Date
     {
         return deadline!
+    }
+    
+    var timeframeUnits: TimeframeUnits {
+        get {
+            return TimeframeUnits(rawValue: self.timeframeUnitsValue)!
+        }
+
+        set {
+            self.timeframeUnitsValue = newValue.rawValue
+        }
     }
 
 }

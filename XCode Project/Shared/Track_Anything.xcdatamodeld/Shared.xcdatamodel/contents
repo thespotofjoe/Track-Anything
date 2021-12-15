@@ -7,6 +7,7 @@
     </entity>
     <entity name="Goal" representedClassName="Goal" syncable="YES">
         <attribute name="deadline" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="goal" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="timeframe" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="timeframeUnitsValue" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="typeOfGoalValue" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
@@ -43,15 +44,16 @@
         <attribute name="repGoal" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="setGoal" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="timeframe" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="timeframeUnitsValue" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="exercise" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WeightExercise" inverseName="goal" inverseEntity="WeightExercise"/>
     </entity>
     <elements>
         <element name="Category" positionX="-63" positionY="-18" width="128" height="74"/>
-        <element name="Goal" positionX="-36" positionY="27" width="128" height="104"/>
+        <element name="Goal" positionX="-36" positionY="27" width="128" height="119"/>
         <element name="Measurement" positionX="-18" positionY="45" width="128" height="74"/>
         <element name="Metric" positionX="-54" positionY="0" width="128" height="104"/>
         <element name="WeightExercise" positionX="18" positionY="108" width="128" height="89"/>
         <element name="WeightExerciseEntry" positionX="36" positionY="117" width="128" height="104"/>
-        <element name="WeightExerciseGoal" positionX="0" positionY="63" width="128" height="119"/>
+        <element name="WeightExerciseGoal" positionX="0" positionY="63" width="128" height="134"/>
     </elements>
 </model>

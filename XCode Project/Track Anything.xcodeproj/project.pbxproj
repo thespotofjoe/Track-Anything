@@ -51,6 +51,8 @@
 		095E34082757D9F20032FBFF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095E33DB2757D9F00032FBFF /* ContentView.swift */; };
 		095E340B2757D9F20032FBFF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 095E33DD2757D9F10032FBFF /* Assets.xcassets */; };
 		095E340C2757D9F20032FBFF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 095E33DD2757D9F10032FBFF /* Assets.xcassets */; };
+		09F08CED276A25640056ED7A /* TestClasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F08CEC276A25640056ED7A /* TestClasses.swift */; };
+		09F08CEE276A25640056ED7A /* TestClasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F08CEC276A25640056ED7A /* TestClasses.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,6 +102,7 @@
 		095E33FB2757D9F10032FBFF /* Tests macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		095E33FF2757D9F10032FBFF /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
 		095E34012757D9F10032FBFF /* Tests_macOSLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOSLaunchTests.swift; sourceTree = "<group>"; };
+		09F08CEC276A25640056ED7A /* TestClasses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestClasses.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,6 +171,7 @@
 				095E33DD2757D9F10032FBFF /* Assets.xcassets */,
 				095E33D82757D9F00032FBFF /* Track_Anything.xcdatamodeld */,
 				093A5F69275D9A370063B2CF /* Enums.swift */,
+				09F08CEC276A25640056ED7A /* TestClasses.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -369,6 +373,7 @@
 			files = (
 				093A5F63275D978B0063B2CF /* Metric+CoreDataProperties.swift in Sources */,
 				093A5F4D275D978B0063B2CF /* WeightExerciseGoal+CoreDataClass.swift in Sources */,
+				09F08CED276A25640056ED7A /* TestClasses.swift in Sources */,
 				093A5F5F275D978B0063B2CF /* Category+CoreDataProperties.swift in Sources */,
 				093A5F5D275D978B0063B2CF /* Category+CoreDataClass.swift in Sources */,
 				095E34032757D9F10032FBFF /* Track_Anything.xcdatamodeld in Sources */,
@@ -395,6 +400,7 @@
 			files = (
 				093A5F64275D978B0063B2CF /* Metric+CoreDataProperties.swift in Sources */,
 				093A5F4E275D978B0063B2CF /* WeightExerciseGoal+CoreDataClass.swift in Sources */,
+				09F08CEE276A25640056ED7A /* TestClasses.swift in Sources */,
 				093A5F60275D978B0063B2CF /* Category+CoreDataProperties.swift in Sources */,
 				093A5F5E275D978B0063B2CF /* Category+CoreDataClass.swift in Sources */,
 				095E34042757D9F10032FBFF /* Track_Anything.xcdatamodeld in Sources */,
