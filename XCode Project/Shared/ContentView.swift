@@ -11,8 +11,14 @@ import CoreData
 struct ContentView: View
 {
     @Environment(\.managedObjectContext)    private var context
-    @FetchRequest(sortDescriptors: [])      private var categories: FetchedResults<Category>
+    //@FetchRequest(sortDescriptors: [])      private var categories: FetchedResults<Category>
+    
+    @State var categories: [TestCategory] = []
+    
     @State var currentScreen: Screen = .homeScreen
+    @State var currentCategory: TestCategory? = nil
+    @State var categoryName: String = ""
+    @State var temporaryMetricName: String = ""
     @State var newMetricFlag: Bool = false
     
     var body: some View
@@ -135,13 +141,15 @@ struct ContentView: View
                 // Create a button for each category from the FetchRequest
                 if self.newMetricFlag
                 {
-                    button(text: "Category 1", newScreen: .newMetricScreen)
-                    button(text: "Category 2", newScreen: .newMetricScreen)
-                    button(text: "Category 3", newScreen: .newMetricScreen)
+                    ForEach(categories, id: \.self)
+                    { category in
+                        button(text: category.unwrappedName, newScreen: .newMetricScreen, {self.currentCategory = category})
+                    }
                 } else {
-                    button(text: "Category 1", newScreen: .oneCategoryScreen)
-                    button(text: "Category 2", newScreen: .oneCategoryScreen)
-                    button(text: "Category 3", newScreen: .oneCategoryScreen)
+                    ForEach(categories, id: \.self)
+                    { category in
+                        button(text: category.unwrappedName, newScreen: .oneCategoryScreen, {self.currentCategory = category})
+                    }
                 }
             }
             .padding()
@@ -154,7 +162,10 @@ struct ContentView: View
     
     fileprivate func newCategoryScreen() -> some View
     {
-        @State var categoryName: String = ""
+        let binding = Binding(
+                    get: { self.categoryName },
+                    set: { self.categoryName = $0 }
+                )
         
         return VStack
         {
@@ -167,7 +178,7 @@ struct ContentView: View
                 {
                     Text("Name:")
                         .padding()
-                    TextField("", text: $categoryName)
+                    TextField("", text: binding)
                         .background(.white)
                 }
             }
@@ -177,9 +188,18 @@ struct ContentView: View
             
             if self.newMetricFlag
             {
-                button(text: "Create Category", newScreen: .newMetricScreen)
+                button(text: "Create Category", newScreen: .newMetricScreen,
+                {
+                    self.categories.append(TestCategory(name: self.categoryName));
+                    self.categoryName = "";
+                    self.currentCategory = TestCategory(name: categoryName)
+                })
             } else {
-                button(text: "Create Category", newScreen: .oneCategoryScreen)
+                button(text: "Create Category", newScreen: .allCategoriesScreen,
+                {
+                    self.categories.append(TestCategory(name: self.categoryName));
+                    self.categoryName = ""
+                })
             }
         }
     }
@@ -193,7 +213,7 @@ struct ContentView: View
             VStack
             {
                 // Name of this Category
-                Text("Category N")
+                Text(self.currentCategory!.unwrappedName)
                     .font(.system(size:20, weight: .bold))
                     .padding()
                 
@@ -250,9 +270,9 @@ struct ContentView: View
             
             if isWeightExercise
             {
-                button(text: "Create Metric", newScreen: .oneCategoryScreen, {self.newMetricFlag = false})
+                button(text: "Create Metric", newScreen: .oneCategoryScreen, {self.newMetricFlag = false; self.currentCategory!.addWeightExercise(name: metricName)})
             } else {
-                button(text: "Create Metric", newScreen: .whatUnitsScreen)
+                button(text: "Create Metric", newScreen: .whatUnitsScreen, {self.temporaryMetricName = metricName})
             }
         }
     }
@@ -281,7 +301,7 @@ struct ContentView: View
             
             Spacer()
             
-            button(text: "Create Metric", newScreen: .oneCategoryScreen, {self.newMetricFlag = false})
+            button(text: "Create Metric", newScreen: .oneCategoryScreen, {self.newMetricFlag = false; self.currentCategory!.addMetric(name: self.temporaryMetricName, unit: unitName)})
         }
     }
     

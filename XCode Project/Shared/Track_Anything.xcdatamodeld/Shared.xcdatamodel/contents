@@ -40,7 +40,7 @@
     </entity>
     <entity name="WeightExerciseGoal" representedClassName="WeightExerciseGoal" syncable="YES">
         <attribute name="deadline" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="lbsGoal" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="lbsGoal" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="repGoal" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="setGoal" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="timeframe" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>

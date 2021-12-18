@@ -20,7 +20,7 @@ extension WeightExerciseGoal
 
     @NSManaged public var repGoal: Int16
     @NSManaged public var setGoal: Int16
-    @NSManaged public var lbsGoal: Int16
+    @NSManaged public var lbsGoal: Double
     @NSManaged public var deadline: Date?
     @NSManaged public var timeframe: Int16
     @NSManaged public var timeframeUnitsValue: Int16

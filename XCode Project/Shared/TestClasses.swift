@@ -7,8 +7,19 @@
 
 import Foundation
 
-class TestCategory
+class TestCategory: Hashable
 {
+    static func == (lhs: TestCategory, rhs: TestCategory) -> Bool
+    {
+        return  lhs.unwrappedName == rhs.unwrappedName &&
+                lhs.metricArray == rhs.metricArray &&
+                lhs.exerciseArray == rhs.exerciseArray
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(unwrappedName)
+    }
+    
     public var unwrappedName: String
     public var metricArray: [TestMetric] = []
     public var exerciseArray: [TestWeightExercise] = []
@@ -21,19 +32,27 @@ class TestCategory
         return
     }
 
-    public func addMetric(_ metric: Metric? = nil, metrics: [Metric] = [])
+    public func addMetric(name: String, unit: String, measurements: [TestMeasurement] = [], goals: [TestGoal] = [])
     {
-        
+        metricArray.append(TestMetric(name: name, unit: unit))
     }
 
-    public func addWeightExercise(_ exercise: WeightExercise? = nil, exercises: [WeightExercise] = [])
+    public func addWeightExercise(name: String)
     {
-
+        exerciseArray.append(TestWeightExercise(name: name))
     }
 }
 
-class TestMetric
+class TestMetric: Equatable
 {
+    static func == (lhs: TestMetric, rhs: TestMetric) -> Bool
+    {
+        return  lhs.unwrappedName == rhs.unwrappedName &&
+                lhs.unwrappedUnit == rhs.unwrappedUnit &&
+                lhs.logArray == rhs.logArray &&
+                lhs.goalArray == rhs.goalArray
+    }
+    
     public var unwrappedName: String
     public var unwrappedUnit: String
     public var logArray: [TestMeasurement] = []
@@ -48,20 +67,27 @@ class TestMetric
         return
     }
 
-    public func addMeasurement(_ measurement: TestMeasurement? = nil, measurements: [TestMeasurement] = [])
+    public func addLog(number: Double, date: Date)
     {
-        
+        logArray.append(TestMeasurement(number: number, date: date))
     }
 
-    public func addGoal(_ goal: Goal? = nil, goals: [TestGoal] = [])
+    public func addGoal(goal: Double, deadline: Date, timeframe: Int16, type: TypeOfGoal, timeframeUnits: TimeframeUnits)
     {
-
+        goalArray.append(TestGoal(goal: goal, deadline: deadline, timeframe: timeframe, type: type, timeframeUnits: timeframeUnits))
     }
     
 }
 
-class TestWeightExercise
+class TestWeightExercise: Equatable
 {
+    static func == (lhs: TestWeightExercise, rhs: TestWeightExercise) -> Bool
+    {
+        return  lhs.unwrappedName == rhs.unwrappedName &&
+                lhs.logArray == rhs.logArray &&
+                lhs.goal == rhs.goal
+    }
+    
     public var unwrappedName: String
     public var logArray: [TestWeightExerciseEntry] = []
     public var goal: TestWeightExerciseGoal?
@@ -73,15 +99,15 @@ class TestWeightExercise
         self.goal = goal
         return
     }
-
-    public func addMeasurement(_ measurement: TestMeasurement? = nil, measurements: [TestMeasurement] = [])
+    
+    public func addLog(lbs: Double, sets: Int16, reps: Int16, date: Date)
     {
-        
+        logArray.append(TestWeightExerciseEntry(lbs: lbs, sets: sets, reps: reps, date: date))
     }
 
-    public func addGoal(_ goal: Goal? = nil, goals: [Goal] = [])
+    public func addGoal(lbsGoal: Double, setsGoal: Int16, repsGoal: Int16, deadline: Date, timeframe: Int16, timeframeUnits: TimeframeUnits)
     {
-
+        goal = TestWeightExerciseGoal(lbsGoal: lbsGoal, setsGoal: setsGoal, repsGoal: repsGoal, deadline: deadline, timeframe: timeframe, timeframeUnits: timeframeUnits)
     }
     
     public var unwrappedGoal: TestWeightExerciseGoal
@@ -91,10 +117,17 @@ class TestWeightExercise
     
 }
 
-class TestMeasurement
+class TestMeasurement: Equatable
 {
+    
     public var number: Double
     public var unwrappedDate: Date
+    
+    static func == (lhs: TestMeasurement, rhs: TestMeasurement) -> Bool
+    {
+        return  lhs.number == rhs.number &&
+                lhs.unwrappedDate == rhs.unwrappedDate
+    }
     
     init(number: Double, date: Date)
     {
@@ -105,8 +138,17 @@ class TestMeasurement
     }
 }
 
-class TestWeightExerciseEntry
+class TestWeightExerciseEntry: Equatable
 {
+    
+    static func == (lhs: TestWeightExerciseEntry, rhs: TestWeightExerciseEntry) -> Bool
+    {
+        return  lhs.lbs == rhs.lbs &&
+                lhs.sets == rhs.sets &&
+                lhs.reps == rhs.reps &&
+                lhs.unwrappedDate == rhs.unwrappedDate
+    }
+    
     public var lbs: Double
     public var sets: Int16
     public var reps: Int16
@@ -123,8 +165,17 @@ class TestWeightExerciseEntry
     }
 }
 
-class TestGoal
+class TestGoal: Equatable
 {
+    static func == (lhs: TestGoal, rhs: TestGoal) -> Bool
+    {
+        return  lhs.goal == rhs.goal &&
+                lhs.unwrappedDeadline == rhs.unwrappedDeadline &&
+                lhs.timeframe == rhs.timeframe &&
+                lhs.typeOfGoalValue == rhs.typeOfGoalValue &&
+                lhs.timeframeUnitsValue == rhs.timeframeUnitsValue
+    }
+    
     public var goal: Double
     public var unwrappedDeadline: Date
     public var timeframe: Int16
@@ -163,16 +214,26 @@ class TestGoal
     }
 }
 
-class TestWeightExerciseGoal
+class TestWeightExerciseGoal: Equatable
 {
-    public var lbsGoal: Int16
+    static func == (lhs: TestWeightExerciseGoal, rhs: TestWeightExerciseGoal) -> Bool
+    {
+        return  lhs.lbsGoal == rhs.lbsGoal &&
+                lhs.setsGoal == rhs.setsGoal &&
+                lhs.repsGoal == rhs.repsGoal &&
+                lhs.unwrappedDeadline == rhs.unwrappedDeadline &&
+                lhs.timeframe == rhs.timeframe &&
+                lhs.timeframeUnitsValue == rhs.timeframeUnitsValue
+    }
+    
+    public var lbsGoal: Double
     public var setsGoal: Int16
     public var repsGoal: Int16
     public var unwrappedDeadline: Date
     public var timeframe: Int16
     public var timeframeUnitsValue: Int16 = 0
     
-    init(lbsGoal: Int16, setsGoal: Int16, repsGoal: Int16, deadline: Date, timeframe: Int16, timeframeUnits: TimeframeUnits)
+    init(lbsGoal: Double, setsGoal: Int16, repsGoal: Int16, deadline: Date, timeframe: Int16, timeframeUnits: TimeframeUnits)
     {
         self.lbsGoal = lbsGoal
         self.setsGoal = setsGoal
