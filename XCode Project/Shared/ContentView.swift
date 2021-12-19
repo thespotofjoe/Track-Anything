@@ -17,9 +17,19 @@ struct ContentView: View
     
     @State var currentScreen: Screen = .homeScreen
     @State var currentCategory: TestCategory? = nil
+    @State var currentMetric: TestMetric? = nil
+    @State var currentExercise: TestWeightExercise? = nil
     @State var categoryName: String = ""
+    @State var metricName: String = ""
+    @State var isWeightExercise: Bool = false
+    @State var measurementString: String = ""
+    @State var date: Date = .now
+    @State var unitName: String = ""
     @State var temporaryMetricName: String = ""
     @State var newMetricFlag: Bool = false
+    @State var reps: Int = 0
+    @State var sets: Int = 0
+    @State var lbsString: String = ""
     
     var body: some View
     {
@@ -53,6 +63,24 @@ struct ContentView: View
             return AnyView(recordWeightExerciseEntryScreen())
         }
     
+    }
+    
+    // Utility functions
+    func resetVariables()
+    {
+        currentCategory = nil
+        currentMetric = nil
+        currentExercise = nil
+        categoryName = ""
+        metricName = ""
+        isWeightExercise = false
+        measurementString = ""
+        date = .now
+        temporaryMetricName = ""
+        newMetricFlag = false
+        reps = 0
+        sets = 0
+        lbsString = ""
     }
     
     // Refactored Views
@@ -218,9 +246,15 @@ struct ContentView: View
                     .padding()
                 
                 // Create a button for each metric from the chosen Category
-                button(text: "Metric 1 (Metric)", newScreen: .recordMeasurementScreen)
-                button(text: "Metric 2 (WeightExercise)", newScreen: .recordWeightExerciseEntryScreen)
-                button(text: "Metric 3 (Metric)", newScreen: .recordMeasurementScreen)
+                ForEach(currentCategory!.metricArray, id: \.self)
+                { metric in
+                    button(text: metric.unwrappedName, newScreen: .recordMeasurementScreen, {self.currentMetric = metric})
+                }
+                
+                ForEach(currentCategory!.exerciseArray, id: \.self)
+                { exercise in
+                    button(text: exercise.unwrappedName, newScreen: .recordWeightExerciseEntryScreen, {self.currentExercise = exercise})
+                }
             }
             .padding()
             
@@ -232,8 +266,15 @@ struct ContentView: View
     
     fileprivate func newMetricScreen() -> some View
     {
-        @State var metricName: String = ""
-        @State var isWeightExercise: Bool = false
+        let bindingMetricName = Binding(
+                    get: { self.metricName },
+                    set: { self.metricName = $0 }
+                )
+        
+        let bindingIsWeightExercise = Binding(
+                    get: { self.isWeightExercise },
+                    set: { self.isWeightExercise = $0 }
+                )
         
         return VStack
         {
@@ -247,7 +288,7 @@ struct ContentView: View
                 {
                     Text("Name:")
                         .padding()
-                    TextField("", text: $metricName)
+                    TextField("", text: bindingMetricName)
                         .background(.white)
                 }
                 .padding()
@@ -257,7 +298,7 @@ struct ContentView: View
                     Text("Weight Exercise?")
                         .padding()
                     
-                    Picker("Weight Exercise?", selection: $isWeightExercise, content:
+                    Picker("Weight Exercise?", selection: bindingIsWeightExercise, content:
                         {
                             Text("Yes").tag(true)
                             Text("No").tag(false)
@@ -268,18 +309,21 @@ struct ContentView: View
             
             Spacer()
             
-            if isWeightExercise
+            if self.isWeightExercise
             {
-                button(text: "Create Metric", newScreen: .oneCategoryScreen, {self.newMetricFlag = false; self.currentCategory!.addWeightExercise(name: metricName)})
+                button(text: "Create Metric", newScreen: .oneCategoryScreen, {self.newMetricFlag = false; self.currentCategory!.addWeightExercise(name: self.metricName)})
             } else {
-                button(text: "Create Metric", newScreen: .whatUnitsScreen, {self.temporaryMetricName = metricName})
+                button(text: "Create Metric", newScreen: .whatUnitsScreen, {self.temporaryMetricName = self.metricName})
             }
         }
     }
     
     fileprivate func whatUnitsScreen() -> some View
     {
-        @State var unitName: String = ""
+        let bindingUnitName = Binding(
+                    get: { self.unitName },
+                    set: { self.unitName = $0 }
+                )
         
         return VStack
         {
@@ -293,7 +337,7 @@ struct ContentView: View
                 {
                     Text("Units:")
                         .padding()
-                    TextField("", text: $unitName)
+                    TextField("", text: bindingUnitName)
                         .background(.white)
                 }
             }
@@ -307,22 +351,29 @@ struct ContentView: View
     
     fileprivate func recordMeasurementScreen() -> some View
     {
-        @State var measurementString: String = ""
-        @State var date: Date = .now
+        let bindingMeasurementString = Binding(
+                    get: { self.measurementString },
+                    set: { self.measurementString = $0 }
+                )
+        
+        let bindingDate = Binding(
+                    get: { self.date },
+                    set: { self.date = $0 }
+                )
         
         return VStack
         {
             VStack
             {
-                Text("Metric N"/*"/(Name of currently selected metric)"*/)
+                Text(self.currentMetric!.unwrappedName)
                     .font(.system(size:20, weight: .bold))
                     .padding()
                 
                 HStack
                 {
-                    Text("Units:"/*"/(Name of units):*/)
+                    Text(self.currentMetric!.unwrappedUnit)
                         .padding()
-                    TextField("", text: $measurementString)
+                    TextField("", text: bindingMeasurementString)
                         .background(.white)
                         .keyboardType(.decimalPad)
                 }
@@ -332,7 +383,7 @@ struct ContentView: View
                 {
                     Text("Date:")
                         .padding()
-                    DatePicker("", selection: $date, displayedComponents: .date)
+                    DatePicker("", selection: bindingDate, displayedComponents: .date)
                 }
                 .padding()
                 
@@ -348,22 +399,41 @@ struct ContentView: View
             Spacer()
             
             /*Make this button also convert measurementString to a Double and save it*/
-            button(text: "Record", newScreen: .homeScreen)
+            button(text: "Record", newScreen: .homeScreen,
+            {
+                self.currentMetric!.addLog(number: Double(self.measurementString)!, date: self.date)
+                resetVariables()
+            })
         }
     }
     
     fileprivate func recordWeightExerciseEntryScreen() -> some View
     {
-        @State var reps: Int = 0
-        @State var sets: Int = 0
-        @State var lbsString: String = ""
-        @State var date: Date = .now
+        let bindingReps = Binding(
+                    get: { self.reps },
+                    set: { self.reps = $0 }
+                )
+        
+        let bindingSets = Binding(
+                    get: { self.sets },
+                    set: { self.sets = $0 }
+                )
+        
+        let bindingLbsString = Binding(
+                    get: { self.lbsString },
+                    set: { self.lbsString = $0 }
+                )
+        
+        let bindingDate = Binding(
+                    get: { self.date },
+                    set: { self.date = $0 }
+                )
         
         return VStack
         {
             VStack
             {
-                Text("Metric N"/*"/(Name of currently selected metric)"*/)
+                Text(self.currentExercise!.unwrappedName/*"/(Name of currently selected metric)"*/)
                     .font(.system(size:20, weight: .bold))
                     .padding()
                 
@@ -371,7 +441,7 @@ struct ContentView: View
                 {
                     Text("Reps:")
                         .padding()
-                    Picker("", selection: $sets) {
+                    Picker("", selection: bindingReps) {
                         ForEach(1...50, id: \.self) {
                             Text("\($0)")
                         }
@@ -382,7 +452,7 @@ struct ContentView: View
                 {
                     Text("Sets:")
                         .padding()
-                    Picker("", selection: $sets) {
+                    Picker("", selection: bindingSets) {
                         ForEach(1...30, id: \.self) {
                             Text("\($0)")
                         }
@@ -393,7 +463,7 @@ struct ContentView: View
                 {
                     Text("Lbs:")
                         .padding()
-                    TextField("", text: $lbsString)
+                    TextField("", text: bindingLbsString)
                         .background(.white)
                         .keyboardType(.decimalPad)
                 }
@@ -402,7 +472,7 @@ struct ContentView: View
                 {
                     Text("Date:")
                         .padding()
-                    DatePicker("", selection: $date, displayedComponents: .date)
+                    DatePicker("", selection: bindingDate, displayedComponents: .date)
                 }
                 
                 HStack
@@ -417,7 +487,11 @@ struct ContentView: View
             Spacer()
             
             /*Make this button also convert measurementString to a Double and save it*/
-            button(text: "Record", newScreen: .homeScreen)
+            button(text: "Record", newScreen: .homeScreen,
+            {
+                self.currentExercise!.addLog(lbs: Double(self.lbsString)!, sets: Int16(self.sets), reps: Int16(self.reps), date: self.date)
+                self.resetVariables()
+            })
         }
     }
 }

@@ -16,7 +16,8 @@ class TestCategory: Hashable
                 lhs.exerciseArray == rhs.exerciseArray
     }
     
-    func hash(into hasher: inout Hasher) {
+    func hash(into hasher: inout Hasher)
+    {
         hasher.combine(unwrappedName)
     }
     
@@ -43,7 +44,7 @@ class TestCategory: Hashable
     }
 }
 
-class TestMetric: Equatable
+class TestMetric: Equatable, Hashable
 {
     static func == (lhs: TestMetric, rhs: TestMetric) -> Bool
     {
@@ -51,6 +52,11 @@ class TestMetric: Equatable
                 lhs.unwrappedUnit == rhs.unwrappedUnit &&
                 lhs.logArray == rhs.logArray &&
                 lhs.goalArray == rhs.goalArray
+    }
+    
+    func hash(into hasher: inout Hasher)
+    {
+        hasher.combine(unwrappedName)
     }
     
     public var unwrappedName: String
@@ -79,13 +85,18 @@ class TestMetric: Equatable
     
 }
 
-class TestWeightExercise: Equatable
+class TestWeightExercise: Equatable, Hashable
 {
     static func == (lhs: TestWeightExercise, rhs: TestWeightExercise) -> Bool
     {
         return  lhs.unwrappedName == rhs.unwrappedName &&
                 lhs.logArray == rhs.logArray &&
                 lhs.goal == rhs.goal
+    }
+    
+    func hash(into hasher: inout Hasher)
+    {
+        hasher.combine(unwrappedName)
     }
     
     public var unwrappedName: String
